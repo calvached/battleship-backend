@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'json'
-require_relative 'lib/human_board'
+require_relative 'lib/game'
 
 enable :sessions
 
@@ -8,30 +8,20 @@ before do
   content_type :json
   headers 'Access-Control-Allow-Origin' => '*',
           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST']
-end
 
-# need to figure out how to board = Board.new and persist it throughout all the routes
-
-get '/start_game' do
-  board = HumanBoard.new(5)
-  board.create
-  p 'SESSION INSIDE START_GAME!'
-  p session
-  session['board_obj'] = board
-  p session
-
-  session['board_obj'].gameboard.to_json
+  game = Game.new
+  game.setup
+  session['game'] = game
 end
 
 get '/current_board' do
-  session['board_obj'].gameboard.to_json
+  session['game'].current_board.to_json
 end
 
 post '/player_move' do
-  p params
-  p 'SESSION INSIDE PLAYER_MOVE!'
-  p session
-  { status: 'hit' }.to_json
+  feedback = session['game'].get_feedback(params['move'])
+
+  { status: feedback }.to_json
 end
 
 get '/hello' do
