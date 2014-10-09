@@ -1,4 +1,4 @@
-class Board
+class HumanBoard
   attr_reader :gameboard
 
   def initialize(dimensions)
@@ -12,8 +12,12 @@ class Board
     end
   end
 
+  def place_move_outcome(status, position)
+    @gameboard[position] = status if @gameboard[position] == ' '
+  end
+
   private
   def create_grid_cells
-    (1..@dimensions**2).to_a
+    ('1'.."#{@dimensions**2}").to_a
   end
 end

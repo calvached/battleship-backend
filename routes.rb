@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'json'
-require_relative 'lib/board'
+require_relative 'lib/human_board'
 
 enable :sessions
 
@@ -13,11 +13,13 @@ end
 # need to figure out how to board = Board.new and persist it throughout all the routes
 
 get '/start_game' do
-  board = Board.new(5)
+  board = HumanBoard.new(5)
   board.create
+  p 'SESSION INSIDE START_GAME!'
+  p session
   session['board_obj'] = board
+  p session
 
-  #redirect "/current_board"
   session['board_obj'].gameboard.to_json
 end
 
@@ -27,6 +29,9 @@ end
 
 post '/player_move' do
   p params
+  p 'SESSION INSIDE PLAYER_MOVE!'
+  p session
+  { status: 'hit' }.to_json
 end
 
 get '/hello' do
