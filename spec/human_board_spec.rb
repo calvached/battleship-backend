@@ -24,14 +24,14 @@ describe HumanBoard do
   end
 
   it "places a letter on the board" do
-    board.place_move_outcome('h', '5')
+    board.record_move_outcome('h', '5')
 
     expect(board.gameboard['5']).to eq('h')
   end
 
   it "doesn't overwrite a letter that has already been placed" do
-    board.place_move_outcome('h', '5')
-    board.place_move_outcome('m', '5')
+    board.record_move_outcome('h', '5')
+    board.record_move_outcome('m', '5')
 
     expect(board.gameboard['5']).to eq('h')
   end

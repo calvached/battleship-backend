@@ -12,7 +12,7 @@ class HumanBoard
     end
   end
 
-  def place_move_outcome(status, position)
+  def record_move_outcome(status, position)
     @gameboard[position] = status if @gameboard[position] == ' '
   end
 
