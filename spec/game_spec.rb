@@ -19,7 +19,7 @@ describe Game do
     )
   end
 
-  it "returns a board with a 'hit'" do
+  it "records feedback on a 'hit'" do
     game.get_feedback('4')
 
     expect(game.current_board).to eq(
@@ -33,7 +33,7 @@ describe Game do
     )
   end
 
-  it "returns a board with a 'miss'" do
+  it "records feedback on a 'miss'" do
     game.get_feedback('13')
 
     expect(game.current_board).to eq(
