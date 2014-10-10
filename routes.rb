@@ -24,10 +24,6 @@ post '/player_move' do
   { status: feedback }.to_json
 end
 
-get '/hello' do
-  { title: 'hi' }.to_json
-end
-
 not_found do
   halt 404, 'Route not created for this!!!'
 end
