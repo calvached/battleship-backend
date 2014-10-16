@@ -48,10 +48,32 @@ describe Game do
   end
 
   it 'returns feedback on a hit' do
-    expect(game.get_feedback('1')).to eq('hit')
+    expect(game.get_feedback('1')).to eq(Game::HIT)
   end
 
   it 'returns feedback on a miss' do
-    expect(game.get_feedback('9')).to eq('miss')
+    expect(game.get_feedback('9')).to eq(Game::MISS)
+  end
+
+  it 'returns the row location of each ship' do
+    expect(game.ship_row_locations).to eq([1])
+  end
+
+  xit "gives a 'hot' announcement" do
+    game.get_feedback('9')
+
+    expect(game.get_announcement).to eq(Game::HOT)
+  end
+
+  xit "gives a 'warm' announcement" do
+    game.get_feedback('12')
+
+    expect(game.get_announcement).to eq(Game::WARM)
+  end
+
+  xit "gives a 'cold' announcement" do
+    game.get_feedback('25')
+
+    expect(game.get_announcement).to eq(Game::COLD)
   end
 end

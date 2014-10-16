@@ -5,6 +5,8 @@ class Game
   BOARD_DIMENSIONS = 5
   HIT = 'hit'
   MISS = 'miss'
+  WARM = 'You are warm'
+  HOT = 'You are hot'
 
   def initialize
     @human_board = HumanBoard.new(BOARD_DIMENSIONS)
@@ -23,13 +25,38 @@ class Game
 
   def get_feedback(position)
     if ai_board.is_hit?(position)
-      human_board.record_move_outcome(HIT, position)
       HIT
     else
-      human_board.record_move_outcome(MISS, position)
       MISS
     end
   end
+
+  #session['game'].process_player_move(params['move']).to_json
+
+  def update_board(feedback, position)
+    human_board.record_move_outcome(feedback, position)
+  end
+
+  def get_announcement
+    p get_rows(ai_board.gameboard)
+    p get_rows(human_board.gameboard)
+
+    Game::HOT
+  end
+
+  def ship_row_locations
+    get_rows(ai_board.gameboard).reduce([]) do |ship_rows, row|
+      p 'ROW'
+      p row
+    end
+  end
+
+  def get_rows(gameboard)
+    gameboard.values.each_slice(BOARD_DIMENSIONS).to_a
+  end
+
+  # if the index of the human_board 'miss' is greater than the index + 1 but less
+  # than index + 3 of the ai_board then it is warm
 
   private
   def ai_board

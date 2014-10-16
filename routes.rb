@@ -2,7 +2,8 @@ require 'sinatra'
 require 'json'
 require_relative 'lib/game'
 
-enable :sessions
+use Rack::Session::Pool
+#enable :sessions
 
 before do
   content_type :json
@@ -15,13 +16,29 @@ before do
 end
 
 get '/current_board' do
+  #require 'pry'
+  #binding.pry
   session['game'].current_board.to_json
 end
 
 post '/player_move' do
-  feedback = session['game'].get_feedback(params['move'])
+  #require 'pry'
+  #binding.pry
 
-  { status: feedback }.to_json
+  feedback = session['game'].get_feedback(params['move'])
+  session['game'].update_board(feedback, params['move'])
+  #binding.pry
+
+  { moveStatus: feedback, announcement: 'You are warm' }.to_json
+
+  #session['game'].process_player_move(params['move']).to_json
+end
+
+post '/board_size' do
+  p '================================= BOARD SIZE ====================================='
+  p params
+
+  { status: 'received!' }.to_json
 end
 
 not_found do
