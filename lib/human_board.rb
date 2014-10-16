@@ -2,7 +2,7 @@ class HumanBoard
   attr_reader :gameboard
 
   def initialize(dimensions)
-    @dimensions = dimensions
+    @dimensions = dimensions.to_i
   end
 
   def create
