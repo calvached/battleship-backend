@@ -19,17 +19,20 @@ before do
   create_game
 end
 
-#class App < Sinatra::Application
+class App < Sinatra::Application
   get '/current_board' do
-    p '============================= CURRENT BOARD =================================='
-    p session
-
+    #require 'pry'
+    #binding.pry
     session['game'].current_board.to_json
   end
 
   post '/player_move' do
+    #require 'pry'
+    #binding.pry
+
     feedback = session['game'].get_feedback(params['move'])
     session['game'].update_board(feedback, params['move'])
+    #binding.pry
 
     { moveStatus: feedback, announcement: 'You are warm' }.to_json
 
@@ -47,9 +50,9 @@ end
   end
 
   def create_game
-    #params['board_size']
+  #params['board_size']
     game = Game.new('6')
     game.setup
     session['game'] = game
   end
-#end
+end
