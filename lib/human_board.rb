@@ -2,11 +2,11 @@ class HumanBoard
   attr_reader :gameboard
 
   def initialize(dimensions)
-    @dimensions = dimensions.to_i
+    @gameboard = create(dimensions.to_i)
   end
 
-  def create
-    @gameboard = create_grid_cells.reduce({}) do |board, cell|
+  def create(dimensions)
+    @gameboard = create_grid_cells(dimensions).reduce({}) do |board, cell|
       board[cell] = ' '
       board
     end
@@ -17,7 +17,7 @@ class HumanBoard
   end
 
   private
-  def create_grid_cells
-    ('1'.."#{@dimensions**2}").to_a
+  def create_grid_cells(dimensions)
+    ('1'.."#{dimensions**2}").to_a
   end
 end
