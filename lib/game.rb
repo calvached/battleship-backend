@@ -4,18 +4,23 @@ require_relative 'ai_board'
 class Game
   HIT = 'hit'
   MISS = 'miss'
-  WARM = 'You are warm'
-  HOT = 'You are hot'
+  HINT_WARM = 'You are warm'
+  HINT_HOT = 'You are hot'
+  HINT_COLD = 'You are cold'
+  BATTLESHIP = 'battleship'
+  CRUISER = 'cruiser'
 
   def initialize(board_dimensions)
+    @mounted_ships = {
+                        'battleship' => ['1', '2', '3', '4'],
+                        'cruiser' => ['5', '6', '7', '8'],
+                     }
+    @board_dimensions = board_dimensions
     @human_board = HumanBoard.new(board_dimensions)
-    @ai_board = AIBoard.new(board_dimensions)
   end
 
   def setup
     human_board.create
-    ai_board.create
-    ai_board.place_ships
   end
 
   def current_board
@@ -23,11 +28,19 @@ class Game
   end
 
   def get_feedback(position)
-    if ai_board.is_hit?(position)
-      HIT
+    if ship_name = get_ship_name(position)
+      { hitOrMiss: HIT, shipName: ship_name }
     else
-      MISS
+      { hitOrMiss: MISS, hint: HINT_COLD }
     end
+  end
+
+  def get_ship_name(position)
+    @mounted_ships.each do |ship_name, locations|
+      return ship_name if locations.include?(position)
+    end
+
+    false
   end
 
   #session['game'].process_player_move(params['move']).to_json
@@ -41,17 +54,6 @@ class Game
     p get_rows(human_board.gameboard)
 
     Game::HOT
-  end
-
-  def ship_row_locations
-    get_rows(ai_board.gameboard).reduce([]) do |ship_rows, row|
-      p 'ROW'
-      p row
-    end
-  end
-
-  def get_rows(gameboard)
-    gameboard.values.each_slice(BOARD_DIMENSIONS).to_a
   end
 
   # if the index of the human_board 'miss' is greater than the index + 1 but less
