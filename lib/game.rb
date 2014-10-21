@@ -15,13 +15,12 @@ class Game
                         'battleship' => ['1', '2', '3', '4'],
                         'cruiser' => ['5', '6', '7', '8'],
                      }
-    @board_dimensions = board_dimensions
     @human_board = HumanBoard.new(board_dimensions)
   end
 
-  def setup
-    human_board.create
-  end
+  #def setup
+  #  human_board.create
+  #end
 
   def current_board
     human_board.gameboard
@@ -68,5 +67,4 @@ class Game
     @human_board
   end
 end
-
 #   announcer
