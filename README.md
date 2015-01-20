@@ -4,7 +4,7 @@ An overly simplified version of Battleship created to help me get familiar with 
 ## Configuration
 Start the server:  
 ```
-shotgun routes.rb
+ruby routes.rb -p 9393
 ```
 
 ## How to run the test suite
