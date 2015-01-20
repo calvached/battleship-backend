@@ -25,7 +25,9 @@ end
 
 post '/board_size' do
   if Validator.validate_board_size(params['board_size'])
-    GameKeeper.current_game = Game.new(params['board_size'])
+    game = Game.new(params['board_size'])
+    game.setup
+    GameKeeper.current_game = game
 
     { gameboard: GameKeeper.current_board }.to_json
   else

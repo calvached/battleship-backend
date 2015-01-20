@@ -7,8 +7,12 @@ class Game
     @board_dimensions = board_dimensions
   end
 
-  def current_board
+  def setup
     ai_board.create
+  end
+
+  def current_board
+    ai_board.gameboard
   end
 
   # if the index of the human_board 'miss' is greater than the index + 1 but less
