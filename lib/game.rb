@@ -1,25 +1,26 @@
-require_relative 'ai_board'
+require_relative 'board'
 
 class Game
 
-  def initialize(board_dimensions)
-    @ai_board = AIBoard.new(board_dimensions)
-    @board_dimensions = board_dimensions
+  def initialize(board, ai_player)
+    @board = board
+    @ai_player = ai_player
   end
 
   def setup
-    ai_board.create
+    board.create
+    ai_player.place_ships
   end
 
   def current_board
-    ai_board.gameboard
+    board.gameboard
   end
 
-  # if the index of the human_board 'miss' is greater than the index + 1 but less
-  # than index + 3 of the ai_board then it is warm
-
   private
-  def ai_board
-    @ai_board
+  def ai_player
+    @ai_player
+  end
+  def board
+    @board
   end
 end

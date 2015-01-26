@@ -10,8 +10,4 @@ class GameKeeper
   def self.current_board
     @game.current_board
   end
-
-  def self.get_feedback(position)
-    @game.get_feedback(position)
-  end
 end
