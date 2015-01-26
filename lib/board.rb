@@ -1,4 +1,4 @@
-class AIBoard
+class Board
   attr_reader :gameboard
 
   def initialize(dimensions)
@@ -10,6 +10,14 @@ class AIBoard
       board[cell] = ' '
       board
     end
+  end
+
+  def all_rows
+    gameboard.keys.each_slice(@dimensions).to_a
+  end
+
+  def all_columns
+    all_rows.transpose
   end
 
   private

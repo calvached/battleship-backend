@@ -2,6 +2,9 @@ require 'json'
 require "sinatra"
 require_relative 'lib/game_keeper'
 require_relative 'lib/game'
+require_relative 'lib/ai_player'
+require_relative 'lib/rules'
+require_relative 'lib/ship_selector'
 require_relative 'lib/validator'
 
 set :port, 9393
@@ -15,24 +18,18 @@ before do
           'Access-Control-Allow-Credentials' => 'true'
 end
 
-get '/current_board' do
-  GameKeeper.current_board.to_json
-end
-
-post '/player_move' do
-  GameKeeper.get_feedback(params['move']).to_json
-end
-
-post '/board_size' do
+post '/new_game' do
   if Validator.validate_board_size(params['board_size'])
-    game = Game.new(params['board_size'])
+    board = Board.new(params['board_size'])
+    ai_player = AiPlayer.new(board, Rules, ShipSelector)
+    game = Game.new(board, ai_player)
     game.setup
     GameKeeper.current_game = game
 
-    { gameboard: GameKeeper.current_board }.to_json
+    ({ gameboard: GameKeeper.current_board }).to_json
   else
 
-    { errorMsg: "Invalid input. Please enter a number from 4 - 10." }.to_json
+    halt 400, "Invalid input. Please enter a number from #{Validator::MIN_BOARD_SIZE} - #{Validator::MAX_BOARD_SIZE}."
   end
 end
 
