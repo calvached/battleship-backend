@@ -13,7 +13,7 @@ class Game
   end
 
   def current_board
-    board.gameboard
+    board.formatted_board
   end
 
   private

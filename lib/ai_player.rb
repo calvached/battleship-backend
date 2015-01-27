@@ -1,4 +1,6 @@
 class AiPlayer
+  attr_reader :ship_placements
+
   def initialize(board, rules, ship_selector)
     @board = board
     @rules = rules
@@ -6,6 +8,7 @@ class AiPlayer
     @ship_options = {
                       aircraft_carrier: 5,
                     }
+    @ship_placements = []
   end
 
   def place_ships
@@ -16,9 +19,7 @@ class AiPlayer
 
   private
   def mount_to_board(ship_name, ship_size)
-    select_placement(ship_size).each do |key|
-      board.gameboard[key] = ship_name.to_s
-    end
+    @ship_placements << select_placement(ship_size)
   end
 
   def select_placement(ship_size)

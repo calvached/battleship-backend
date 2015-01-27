@@ -18,7 +18,7 @@ before do
           'Access-Control-Allow-Credentials' => 'true'
 end
 
-post '/new_game' do
+post '/new' do
   if Validator.validate_board_size(params['board_size'])
     board = Board.new(params['board_size'])
     ai_player = AiPlayer.new(board, Rules, ShipSelector)
@@ -26,7 +26,7 @@ post '/new_game' do
     game.setup
     GameKeeper.current_game = game
 
-    ({ gameboard: GameKeeper.current_board }).to_json
+    (GameKeeper.current_board).to_json
   else
 
     halt 400, "Invalid input. Please enter a number from #{Validator::MIN_BOARD_SIZE} - #{Validator::MAX_BOARD_SIZE}."

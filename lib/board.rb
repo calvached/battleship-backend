@@ -1,4 +1,5 @@
 class Board
+  attr_accessor :ship_placements
   attr_reader :gameboard
 
   def initialize(dimensions)
@@ -10,6 +11,10 @@ class Board
       board[cell] = ' '
       board
     end
+  end
+
+  def formatted_board
+    @gameboard.reduce([]) {|cells, (k, v)| cells << {k => v} }
   end
 
   def all_rows

@@ -24,10 +24,6 @@ describe AiPlayer do
     player = AiPlayer.new(board, rules, MockShipSelector)
     player.place_ships
 
-    expect(board.gameboard['1']).to eq('aircraft_carrier')
-    expect(board.gameboard['6']).to eq('aircraft_carrier')
-    expect(board.gameboard['11']).to eq('aircraft_carrier')
-    expect(board.gameboard['16']).to eq('aircraft_carrier')
-    expect(board.gameboard['21']).to eq('aircraft_carrier')
+    expect(player.ship_placements).to eq([['1', '6', '11', '16', '21']])
   end
 end

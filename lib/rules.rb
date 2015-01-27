@@ -10,15 +10,7 @@ class Rules
 
     row_or_column.each_index do |i|
       if within_boundries(ship_size, row_or_column, i)
-        sequence = []
-
-        # break out to another method
-        0.upto(ship_size - 1) do |num|
-          next_space = i + num
-          sequence << row_or_column[next_space]
-        end
-
-        all_sequences << sequence
+        all_sequences << build_ship_sequence(ship_size, row_or_column, i)
       end
     end
 
@@ -26,6 +18,17 @@ class Rules
   end
 
   private
+  def self.build_ship_sequence(ship_size, row_or_column, i)
+    sequence = []
+
+    0.upto(ship_size - 1) do |num|
+      next_space = i + num
+      sequence << row_or_column[next_space]
+    end
+
+    sequence
+  end
+
   def self.within_boundries(ship_size, row_or_column, i)
     row_or_column[i + ship_size - 1]
   end
