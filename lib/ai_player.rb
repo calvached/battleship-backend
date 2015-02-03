@@ -1,9 +1,8 @@
 class AiPlayer
   attr_reader :ship_placements
 
-  def initialize(board, rules, ship_selector)
+  def initialize(board, ship_selector)
     @board = board
-    @rules = rules
     @ship_selector = ship_selector
     @ship_options = {
                       aircraft_carrier: 5,
@@ -23,7 +22,7 @@ class AiPlayer
   end
 
   def select_placement(ship_size)
-    ship_selector.choose(rules.find_all_ship_placements_for(board, ship_size))
+    ship_selector.select(board, ship_size)
   end
 
   def ship_selector

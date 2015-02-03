@@ -12,16 +12,7 @@ describe AiPlayer do
         '21' => " ", '22' => " ", '23' => " ", '24' => " ", '25' => " "
       })
 
-    rules = double('Rules')
-
-    allow(rules).to receive(:find_all_ship_placements_for).with(board, 5).and_return([
-      ['1', '6', '11', '16', '21'],
-      ['1', '2', '3', '4', '5'],
-      ['11', '12', '13', '14', '15'],
-      ['4', '9', '14', '19', '24']
-    ])
-
-    player = AiPlayer.new(board, rules, MockShipSelector)
+    player = AiPlayer.new(board, MockShipSelector)
     player.place_ships
 
     expect(player.ship_placements).to eq([['1', '6', '11', '16', '21']])
