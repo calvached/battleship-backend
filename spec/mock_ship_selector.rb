@@ -1,5 +1,5 @@
 class MockShipSelector
-  def self.choose(choice_options)
-    choice_options.first
+  def self.select(board, ship_size)
+    ['1', '6', '11', '16', '21']
   end
 end

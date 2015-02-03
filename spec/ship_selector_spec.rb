@@ -1,18 +1,18 @@
-require 'rules'
+require 'ship_selector'
 
-describe Rules do
+describe ShipSelector do
   it 'finds all the possible placements available in a row/column for a destroyer' do
     row = ['1', '2', '3', '4', '5']
     column = ['1', '6', '11', '16', '21']
 
-    expect(Rules.find_ship_placements_for(row, 2)).to eq([
+    expect(ShipSelector.find_ship_placements_for(row, 2)).to eq([
       ['1', '2'],
       ['2', '3'],
       ['3', '4'],
       ['4', '5']
     ])
 
-    expect(Rules.find_ship_placements_for(column, 2)).to eq([
+    expect(ShipSelector.find_ship_placements_for(column, 2)).to eq([
       ['1', '6'],
       ['6', '11'],
       ['11', '16'],
@@ -24,11 +24,11 @@ describe Rules do
     row = ['1', '2', '3', '4', '5']
     column = ['1', '6', '11', '16', '21']
 
-    expect(Rules.find_ship_placements_for(row, 5)).to eq([
+    expect(ShipSelector.find_ship_placements_for(row, 5)).to eq([
       ['1', '2', '3', '4', '5']
     ])
 
-    expect(Rules.find_ship_placements_for(column, 5)).to eq([
+    expect(ShipSelector.find_ship_placements_for(column, 5)).to eq([
       ['1', '6', '11', '16', '21']
     ])
   end
@@ -49,7 +49,7 @@ describe Rules do
       ['4', '8', '12', '16']
     ])
 
-    expect(Rules.find_all_ship_placements_for(board, 2)).to eq([
+    expect(ShipSelector.find_all_ship_placements_for(board, 2)).to eq([
       ['1', '2'],['2', '3'],['3', '4'],
       ['5', '6'],['6', '7'],['7', '8'],
       ['9', '10'],['10', '11'],['11', '12'],

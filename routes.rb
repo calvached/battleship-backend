@@ -3,7 +3,6 @@ require "sinatra"
 require_relative 'lib/game_keeper'
 require_relative 'lib/game'
 require_relative 'lib/ai_player'
-require_relative 'lib/rules'
 require_relative 'lib/ship_selector'
 require_relative 'lib/validator'
 
@@ -20,8 +19,9 @@ end
 
 post '/new' do
   if Validator.validate_board_size(params['board_size'])
+    # take this out to a Config class (currently not a story for this week)
     board = Board.new(params['board_size'])
-    ai_player = AiPlayer.new(board, Rules, ShipSelector)
+    ai_player = AiPlayer.new(board, ShipSelector)
     game = Game.new(board, ai_player)
     game.setup
     GameKeeper.current_game = game
