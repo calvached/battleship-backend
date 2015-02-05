@@ -33,6 +33,12 @@ post '/new' do
   end
 end
 
+post '/board/:id' do
+  status = GameKeeper.get_status(params[:id])
+
+  ({id: params[:id], status: status}).to_json
+end
+
 not_found do
   halt 404, 'Route not created for this!!!'
 end

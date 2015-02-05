@@ -8,13 +8,13 @@ class Board
 
   def create
     @gameboard = create_grid_cells.reduce({}) do |board, cell|
-      board[cell] = ' '
+      board[cell] = :id
       board
     end
   end
 
   def formatted_board
-    @gameboard.reduce([]) {|cells, (k, v)| cells << {k => v} }
+    @gameboard.reduce([]) {|cells, (k, v)| cells << {v => k} }
   end
 
   def all_rows
