@@ -1,6 +1,8 @@
 require_relative 'board'
 
 class Game
+  HIT_MESSAGE = 'hit'
+  MISS_MESSAGE = 'miss'
 
   def initialize(board, ai_player)
     @board = board
@@ -14,6 +16,14 @@ class Game
 
   def current_board
     board.formatted_board
+  end
+
+  def get_status(cell_number)
+    if ai_player.is_hit?(cell_number)
+      HIT_MESSAGE
+    else
+      MISS_MESSAGE
+    end
   end
 
   private

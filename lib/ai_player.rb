@@ -16,6 +16,14 @@ class AiPlayer
     end
   end
 
+  def is_hit?(cell_number)
+    @ship_placements.each do |ship_location|
+      return true if ship_location.include?(cell_number)
+    end
+
+    false
+  end
+
   private
   def mount_to_board(ship_name, ship_size)
     @ship_placements << select_placement(ship_size)

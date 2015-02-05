@@ -10,4 +10,8 @@ class GameKeeper
   def self.current_board
     @game.current_board
   end
+
+  def self.get_status(cell_number)
+    @game.get_status(cell_number)
+  end
 end
