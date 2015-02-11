@@ -11,7 +11,15 @@ class GameKeeper
     @game.current_board
   end
 
-  def self.get_status(cell_number)
-    @game.get_status(cell_number)
+  def self.move_status(cell_number)
+    @game.move_status(cell_number)
+  end
+
+  def self.use_move!
+    @game.use_move!
+  end
+
+  def self.game_outcome
+    @game.outcome
   end
 end

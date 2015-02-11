@@ -24,6 +24,16 @@ class AiPlayer
     false
   end
 
+  def make_move(cell_number)
+    @ship_placements.each do |ship_location|
+      ship_location.delete(cell_number)
+    end
+  end
+
+  def all_ships_sunk?
+    @ship_placements.all? { |ship_location| ship_location.empty? }
+  end
+
   private
   def mount_to_board(ship_name, ship_size)
     @ship_placements << select_placement(ship_size)
