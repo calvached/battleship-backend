@@ -2,7 +2,7 @@ require 'validator'
 
 describe Validator do
   it 'returns true if input is valid' do
-    expect(Validator.validate_board_size('4')).to eq(true)
+    expect(Validator.validate_board_size('5')).to eq(true)
     expect(Validator.validate_board_size('7')).to eq(true)
     expect(Validator.validate_board_size('10')).to eq(true)
   end

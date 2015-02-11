@@ -1,5 +1,5 @@
 class Validator
-  MIN_BOARD_SIZE = 4
+  MIN_BOARD_SIZE = 5
   MAX_BOARD_SIZE = 10
 
   def self.validate_board_size(input)
