@@ -1,5 +1,5 @@
 require 'json'
-require "sinatra"
+require 'sinatra'
 require_relative 'lib/counter'
 require_relative 'lib/game_keeper'
 require_relative 'lib/game'
@@ -9,14 +9,14 @@ require_relative 'lib/validator'
 
 set :port, 9393
 
-use Rack::Session::Pool
-
 before do
   content_type :json
   headers 'Access-Control-Allow-Origin' => 'http://localhost:9000',
           'Access-Control-Allow-Methods' => ['OPTIONS', 'GET', 'POST'],
           'Access-Control-Allow-Credentials' => 'true'
 end
+
+NO_ROUTE_MESSAGE = 'Route not created for this!!!'
 
 post '/new' do
   if Validator.validate_board_size(params['board_size'])
@@ -42,9 +42,9 @@ post '/board/:id' do
 end
 
 get '/game_outcome' do
-  (GameKeeper.game_outcome).to_json
+  GameKeeper.game_outcome.to_json
 end
 
 not_found do
-  halt 404, 'Route not created for this!!!'
+  halt 404, NO_ROUTE_MESSAGE
 end
