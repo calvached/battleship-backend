@@ -28,8 +28,8 @@ class Game
   end
 
   def process_move(cell_number)
-    ai_player.make_move(cell_number)
     status = get_move_status(cell_number)
+    ai_player.make_move(cell_number)
     board.place_marker(cell_number, status)
 
     status
