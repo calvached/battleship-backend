@@ -11,8 +11,16 @@ class GameKeeper
     @game.current_board
   end
 
-  def self.move_status(cell_number)
-    @game.move_status(cell_number)
+  def self.available_move?(cell_number)
+    @game.available_move?(cell_number)
+  end
+
+  def self.find_move_status(cell_number)
+    @game.find_move_status(cell_number)
+  end
+
+  def self.process_move(cell_number)
+    @game.process_move(cell_number)
   end
 
   def self.use_move!
