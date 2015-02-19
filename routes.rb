@@ -16,11 +16,14 @@ before do
           'Access-Control-Allow-Credentials' => 'true'
 end
 
-NO_ROUTE_MESSAGE = 'Route not created for this!!!'
+NOT_FOUND_MESSAGE = 'Route not created for this!!!'
+USED_MOVE_MESSAGE = 'Already clicked!'
 
 post '/new' do
   if Validator.validate_board_size(params['board_size'])
-    # take this out to a Config class (currently not a story for this week)
+    # config = Config.new(params['board_size'])
+    # config.setup
+
     board = Board.new(params['board_size'])
     ai_player = AiPlayer.new(board, ShipSelector)
     game = Game.new(board, ai_player, Counter.new(10))
@@ -35,10 +38,16 @@ post '/new' do
 end
 
 post '/board/:id' do
-  GameKeeper.use_move!
-  status = GameKeeper.move_status(params[:id])
+  if GameKeeper.available_move?(params[:id])
+    GameKeeper.use_move!
+    status = GameKeeper.process_move(params[:id])
 
-  ({ id: params[:id], status: status }).to_json
+    ({ id: params[:id], status: status}).to_json
+  else
+    status = GameKeeper.find_move_status(params[:id])
+
+    ({ id: params[:id], status: status, message: USED_MOVE_MESSAGE }).to_json
+  end
 end
 
 get '/game_outcome' do
@@ -46,5 +55,5 @@ get '/game_outcome' do
 end
 
 not_found do
-  halt 404, NO_ROUTE_MESSAGE
+  halt 404, NOT_FOUND_MESSAGE
 end

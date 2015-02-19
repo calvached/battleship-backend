@@ -4,8 +4,8 @@ class Game
   HIT_MESSAGE = 'hit'
   MISS_MESSAGE = 'miss'
 
-  WIN_MESSAGE = 'You win'
-  LOSE_MESSAGE = 'You lose'
+  WIN_MESSAGE = 'win'
+  LOSE_MESSAGE = 'lose'
 
   def initialize(board, ai_player, counter)
     @board = board
@@ -15,6 +15,7 @@ class Game
 
   def setup
     board.create
+    board.create_marker_board
     ai_player.place_ships
   end
 
@@ -22,16 +23,24 @@ class Game
     board.formatted_board
   end
 
-  def move_status(cell_number)
-    if ai_player.is_hit?(cell_number)
-      ai_player.make_move(cell_number)
+  def available_move?(cell_number)
+    board.available_cell?(cell_number)
+  end
 
-      HIT_MESSAGE
-    else
-      ai_player.make_move(cell_number)
+  def process_move(cell_number)
+    ai_player.make_move(cell_number)
+    status = get_move_status(cell_number)
+    board.place_marker(cell_number, status)
 
-      MISS_MESSAGE
-    end
+    status
+  end
+
+  def get_move_status(cell_number)
+    ai_player.is_hit?(cell_number) ? HIT_MESSAGE : MISS_MESSAGE
+  end
+
+  def find_move_status(cell_number)
+    board.marker_board[cell_number]
   end
 
   def use_move!

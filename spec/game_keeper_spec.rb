@@ -35,13 +35,13 @@ describe GameKeeper do
     ])
   end
 
-  it 'returns a move status' do
+  it 'processes a move' do
     game = double('Game')
-    allow(game).to receive(:move_status).with('3').and_return({ gameOutcome: 'hit' })
+    allow(game).to receive(:process_move).with('3').and_return({ gameOutcome: 'hit' })
 
     GameKeeper.current_game = game
 
-    expect(GameKeeper.move_status('3')).to eq({ gameOutcome: 'hit' })
+    expect(GameKeeper.process_move('3')).to eq({ gameOutcome: 'hit' })
   end
 
   it 'uses a move' do
@@ -62,5 +62,25 @@ describe GameKeeper do
     GameKeeper.game_outcome
 
     expect(game).to have_received(:outcome)
+  end
+
+  it 'finds a move status' do
+    game = double('Game')
+    allow(game).to receive(:find_move_status).with('2').and_return('hit')
+
+    GameKeeper.current_game = game
+    GameKeeper.find_move_status('2')
+
+    expect(game).to have_received(:find_move_status)
+  end
+
+  it 'checks if a move is available' do
+    game = double('Game')
+    allow(game).to receive(:available_move?).with('2').and_return(true)
+
+    GameKeeper.current_game = game
+    GameKeeper.available_move?('2')
+
+    expect(game).to have_received(:available_move?)
   end
 end
